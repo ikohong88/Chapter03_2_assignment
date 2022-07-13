@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <meta charset="UTF-8">
+  <title>나만의 게시판 | 회원가입 페이지</title>
+  <script>
+    const href = location.href;
+    const queryString = href.substring(href.indexOf("?")+1)
+    if (queryString === 'error') {
+      const errorDiv = document.getElementById('login-failed');
+      errorDiv.style.display = 'block';
+    }
+    // Service 영역에서 처리
+    // function is_nickname(asValue) {
+    //   let regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{3}$/;
+    //   return regExp.test(asValue);
+    // }
+    //
+    // function is_password(asValue) {
+    //   let regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{4,99}$/;
+    //   return regExp.test(asValue);
+    // }
+
+    function onclickAdmin() {
+      // Get the checkbox
+      let checkBox = document.getElementById("admin-check");
+      // Get the output text
+      let box = document.getElementById("admin-token");
+
+      // If the checkbox is checked, display the output text
+      if (checkBox.checked == true){
+        box.style.display = "block";
+      } else {
+        box.style.display = "none";
+      }
+    }
+  </script>
+</head>
+<body>
+<div id="login-form">
+  <div id="login-title">나만의 게시판 <br> 회원가입</div><br><br>
+
+  <form action="/user/signup" method="post">
+    <div class="login-id-label">닉네임</div>
+    <input type="text" id="nickname" name="nickname" placeholder="Username" class="login-input-box">
+    <div id="id-failed" style="display:none" class="alert alert-danger" role="alert">중복되는 아이디가 있습니다.</div>
+
+    <div class="login-id-label">비밀번호</div>
+    <input type="password" id="password" name="password" class="login-input-box">
+    <div id="pwd-check" style="display:none" class="alert alert-danger" role="alert">비밀번호를 최소 4글자 이상으로 작성해주세요.</div>
+
+    <div class="login-id-label">비밀번호 확인</div>
+    <input type="password" id="password_check" name="password_check" class="login-input-box">
+    <div id="pwd-failed" style="display:none" class="alert alert-danger" role="alert">비밀번호가 일치하지 않습니다.</div>
+
+    <div>
+      <input id="admin-check" type="checkbox" name="admin" onclick="onclickAdmin()" style="margin-top: 40px;">관리자
+      <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="login-input-box" style="display:none">
+    </div>
+    <button id="login-id-submit" onclick="addUser()">회원 가입</button>
+  </form>
+</div>
+</body>
+</html>
